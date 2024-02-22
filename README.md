@@ -1,144 +1,77 @@
-![banner](docs/assets/images/banner_mwmbl.svg)
-
-# Mwmbl - **No ads, no tracking, no cruft, no profit**
-
-[![Matrix](https://img.shields.io/matrix/mwmbl:matrix.org)](https://matrix.to/#/#mwmbl:matrix.org)
-
-Mwmbl is a non-profit, ad-free, free-libre and free-lunch search
-engine with a focus on useability and speed. At the moment it is
-little more than an idea together with a [proof of concept
-implementation](https://mwmbl.org/) of
-the web front-end and search technology on a small index.
-
-Our vision is a community working to provide top quality search
-particularly for hackers, funded purely by donations.
-
-![mwmbl](https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif)
-
-Crawling
-========
-
-**Update 2022-02-05:** We now have a distributed crawler that runs on
-our volunteers' machines! If you have Firefox you can help out by
-[installing our
-extension](https://addons.mozilla.org/en-GB/firefox/addon/mwmbl-web-crawler/). This
-will crawl the web in the background, retrieving one page a second. It
-does not use or access any of your personal data. Instead it crawls
-the web at random, using the top scoring sites on Hacker News as seed
-pages. After extracting a summary of each page, it batches these up
-and sends the data to a central server to be stored and indexed.
-
-Why a non-profit search engine?
-===============================
-
-The motives of ad-funded search engine are at odds with providing an
-optimal user experience. These sites are optimised for ad revenue,
-with user experience taking second place. This means that pages are
-loaded with ads which are often not clearly distinguished from search
-results. Also, eitland on Hacker News
-[comments](https://news.ycombinator.com/item?id=29427442):
-
-> Thinking about it it seems logical that for a search engine that
-> practically speaking has monopoly both on users and as mattgb points
-> out - [to some] degree also on indexing - serving the correct answer
-> first is just dumb: if they can keep me going between their search
-> results and tech blogs with their ads embedded one, two or five
-> times extra that means one, two or five times more ad impressions.
-
-But what about...?
-==================
-
-The space of alternative search engines has expanded rapidly in recent
-years. Here's a very incomplete list of some that have interested me:
-
- - [YaCy](https://yacy.net/) - an open source distributed search engine
- - [search.marginalia.nu](https://search.marginalia.nu/) - a search
-   engine favouring text-heavy websites
- - [Gigablast](https://gigablast.com/) - a privacy-focused search
-   engine whose owner makes money by selling the technology to third
-   parties
- - [Brave](https://search.brave.com/)
- - [DuckDuckGo](https://duckduckgo.com/)
-
-Of these, YaCy is the closest in spirit to the idea of a non-profit
-search engine. The index is distributed across a peer-to-peer
-network. Unfortunately this design decision makes search very slow.
-
-Marginalia Search is fantastic, but it is more of a personal project
-than an open source community.
-
-All other search engines that I've come across are for-profit. Please
-let me know if I've missed one!
-
-Designing for non-profit
-========================
-
-To be a good search engine, we need to store many items, but the cost
-of running the engine is at least proportional to the number of items
-stored. Our main consideration is thus to reduce the cost per item
-stored.
-
-The design is founded on the observation that most items rank for a
-small set of terms. In the extreme version of this, where each item
-ranks for a single term, the usual inverted index design is grossly
-inefficient, since we have to store each term at least twice: once in
-the index and once in the item data itself.
-
-Our design is a giant hash map. We have a single store consisting of a
-fixed number N of pages. Each page is of a fixed size (currently 4096
-bytes to match a page of memory), and consists of a compressed list of
-items. Given a term for which we want an item to rank, we compute a
-hash of the term, a value between 0 and N - 1. The item is then stored
-in the corresponding page.
-
-To retrieve pages, we simply compute the hash of the terms in the user
-query and load the corresponding pages, filter the items to those
-containing the term and rank the items. Since each page is small, this
-can be done very quickly.
-
-Because we compress the list of items, we can rank for more than a
-single term and maintain an index smaller than the inverted index
-design. Well, that's the theory. This idea has yet to be tested out on
-a large scale.
-
-How to contribute
-=================
-
-There are lots of ways to help:
- - [Help us crawl the
-   web](https://addons.mozilla.org/en-GB/firefox/addon/mwmbl-web-crawler/)
- - [Donate some money](https://opencollective.com/mwmbl) towards
-   hosting costs and supporting our volunteers
- - Give feedback/suggestions
- - Help out with development of the engine itself
-
-If you would like to help in any of these or other ways, thank you!
-Please join our [Matrix chat
-server](https://matrix.to/#/#mwmbl:matrix.org) or email the main
-author (email address is in the git commit history).
-
-Development
-===========
-
-### Local Testing
-
-For trying out the service locally see the section in the Mwmbl [book](https://book.mwmbl.org/page/developers/).
-
-### Using Dokku
-
-Note: this method is not recommended as it is more involved, and your index will not have any data in it unless you 
-set up a crawler to crawl to your server. You will need to set  up your own Backblaze or S3 equivalent storage, or 
-have access to the production keys, which we probably won't give you.
-
-Follow the [deployment instructions](https://github.com/mwmbl/mwmbl/wiki/Deployment)
-
-
-Frequently Asked Question
-=========================
-
-### How do you pronounce "mwmbl"?
-
-Like "mumble". I live in
-[Mumbles](https://en.wikipedia.org/wiki/Mumbles), which is spelt
-"Mwmbwls" in Welsh. But the intended meaning is "to mumble", as in
-"don't search, just mwmbl!"
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/mwmbl/mwmbl/blob/main/docs/assets/images/banner_mwmbl.svg"><img src="/mwmbl/mwmbl/raw/main/docs/assets/images/banner_mwmbl.svg" alt="横幅" style="max-width: 100%;"></a></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-mwmbl---no-ads-no-tracking-no-cruft-no-profit" class="anchor" aria-hidden="true" tabindex="-1" href="#mwmbl---no-ads-no-tracking-no-cruft-no-profit"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mwmbl -</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">无广告、无跟踪、无垃圾、无利润</font></font></strong></h1>
+<p dir="auto"><a href="https://matrix.to/#/#mwmbl:matrix.org" rel="nofollow"><img src="https://camo.githubusercontent.com/dc03dba1c5fb5a655a82e25c1b15b0dcd343f301359def98d4b500d63aae1323/68747470733a2f2f696d672e736869656c64732e696f2f6d61747269782f6d776d626c3a6d61747269782e6f7267" alt="矩阵" data-canonical-src="https://img.shields.io/matrix/mwmbl:matrix.org" style="max-width: 100%;"></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mwmbl 是一个非营利、无广告、免费和免费午餐的搜索引擎，注重可用性和速度。</font><font style="vertical-align: inherit;">目前，它只不过是一个想法以及</font><font style="vertical-align: inherit;">在小型索引上实现 Web 前端和搜索技术的</font></font><a href="https://mwmbl.org/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">概念验证。</font></font></a><font style="vertical-align: inherit;"></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们的愿景是建立一个致力于提供高质量搜索（特别是针对黑客）的社区，其资金完全来自捐赠。</font></font></p>
+<p dir="auto"><animated-image data-catalyst=""><a target="_blank" rel="noopener noreferrer nofollow" href="https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif" data-target="animated-image.originalLink"><img src="https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif" alt="姆瓦姆布尔" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage"></a>
+      <span class="AnimatedImagePlayer" data-target="animated-image.player" hidden="">
+        <a data-target="animated-image.replacedLink" class="AnimatedImagePlayer-images" href="https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif" target="_blank">
+          
+        <span data-target="animated-image.imageContainer">
+            <img data-target="animated-image.replacedImage" alt="姆瓦姆布尔" class="AnimatedImagePlayer-animatedImage" src="https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif" style="display: block; opacity: 1;">
+          <canvas class="AnimatedImagePlayer-stillImage" aria-hidden="true" width="814" height="459"></canvas></span></a>
+        <button data-target="animated-image.imageButton" class="AnimatedImagePlayer-images" tabindex="-1" aria-label="播放 mwmbl" hidden=""></button>
+        <span class="AnimatedImagePlayer-controls" data-target="animated-image.controls" hidden="">
+          <button data-target="animated-image.playButton" class="AnimatedImagePlayer-button" aria-label="播放 mwmbl">
+            <svg aria-hidden="true" focusable="false" class="octicon icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 13.5427V2.45734C4 1.82607 4.69692 1.4435 5.2295 1.78241L13.9394 7.32507C14.4334 7.63943 14.4334 8.36057 13.9394 8.67493L5.2295 14.2176C4.69692 14.5565 4 14.1739 4 13.5427Z">
+            </path></svg>
+            <svg aria-hidden="true" focusable="false" class="octicon icon-pause" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="2" width="3" height="12" rx="1"></rect>
+              <rect x="9" y="2" width="3" height="12" rx="1"></rect>
+            </svg>
+          </button>
+          <a data-target="animated-image.openButton" aria-label="在新窗口中打开 mwmbl" class="AnimatedImagePlayer-button" href="https://user-images.githubusercontent.com/1283077/218265959-be4220b4-dcf0-47ab-acd3-f06df0883b52.gif" target="_blank">
+            <svg aria-hidden="true" class="octicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+              <path fill-rule="evenodd" d="M10.604 1h4.146a.25.25 0 01.25.25v4.146a.25.25 0 01-.427.177L13.03 4.03 9.28 7.78a.75.75 0 01-1.06-1.06l3.75-3.75-1.543-1.543A.25.25 0 0110.604 1zM3.75 2A1.75 1.75 0 002 3.75v8.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 12.25v-3.5a.75.75 0 00-1.5 0v3.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-8.5a.25.25 0 01.25-.25h3.5a.75.75 0 000-1.5h-3.5z"></path>
+            </svg>
+          </a>
+        </span>
+      </span></animated-image></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-crawling" class="anchor" aria-hidden="true" tabindex="-1" href="#crawling"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">爬行</font></font></h1>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2022-02-05 更新：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们现在有了一个在志愿者机器上运行的分布式爬虫！</font></font><a href="https://addons.mozilla.org/en-GB/firefox/addon/mwmbl-web-crawler/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您有 Firefox，您可以通过安装我们的扩展</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">来提供帮助
+</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">这将在后台抓取网络，每秒检索一页。</font><font style="vertical-align: inherit;">它不会使用或访问您的任何个人数据。</font><font style="vertical-align: inherit;">相反，它随机抓取网络，使用黑客新闻上得分最高的网站作为种子页面。</font><font style="vertical-align: inherit;">提取每个页面的摘要后，它将这些数据进行批处理，并将数据发送到中央服务器进行存储和索引。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-why-a-non-profit-search-engine" class="anchor" aria-hidden="true" tabindex="-1" href="#why-a-non-profit-search-engine"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为什么选择非盈利搜索引擎？</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">广告资助的搜索引擎的动机与提供最佳用户体验是不一致的。</font><font style="vertical-align: inherit;">这些网站针对广告收入进行了优化，而用户体验则排在第二位。</font><font style="vertical-align: inherit;">这意味着页面上加载的广告通常与搜索结果没有明显区别。</font><font style="vertical-align: inherit;">另外，eitland 在 Hacker News 上
+</font></font><a href="https://news.ycombinator.com/item?id=29427442" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">评论道</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+<blockquote>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">考虑一下，这似乎是合乎逻辑的，对于一个搜索引擎来说，实际上它既垄断了用户，也正如 mattgb 指出的那样——[在某种程度上]也在索引上——首先提供正确的答案是愚蠢的：如果它们能让我在两者之间继续前进他们的搜索结果和科技博客的广告嵌入量增加一倍、两倍或五倍，这意味着广告展示次数增加一倍、两倍或五倍。</font></font></p>
+</blockquote>
+<h1 tabindex="-1" dir="auto"><a id="user-content-but-what-about" class="anchor" aria-hidden="true" tabindex="-1" href="#but-what-about"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">但是关于...？</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近年来，替代搜索引擎的空间迅速扩大。</font><font style="vertical-align: inherit;">以下是我感兴趣的一些非常不完整的列表：</font></font></p>
+<ul dir="auto">
+<li><a href="https://yacy.net/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">YaCy</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - 开源分布式搜索引擎</font></font></li>
+<li><a href="https://search.marginalia.nu/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">search.marginalia.nu</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - 偏爱文本型网站的搜索引擎</font></font></li>
+<li><a href="https://gigablast.com/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Gigablast</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - 一个注重隐私的搜索引擎，其所有者通过向第三方出售技术来赚钱</font></font></li>
+<li><a href="https://search.brave.com/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">勇敢的</font></font></a></li>
+<li><a href="https://duckduckgo.com/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">鸭鸭Go</font></font></a></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">其中，YaCy 在精神上最接近非营利搜索引擎的理念。</font><font style="vertical-align: inherit;">该索引分布在对等网络中。</font><font style="vertical-align: inherit;">不幸的是，这种设计决策使得搜索速度非常慢。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Marginalia Search 非常棒，但它更多的是一个个人项目，而不是一个开源社区。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我遇到的所有其他搜索引擎都是营利性的。</font><font style="vertical-align: inherit;">如果我错过了，请告诉我！</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-designing-for-non-profit" class="anchor" aria-hidden="true" tabindex="-1" href="#designing-for-non-profit"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为非营利组织设计</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要成为一个好的搜索引擎，我们需要存储许多项目，但运行引擎的成本至少与存储的项目数量成正比。</font><font style="vertical-align: inherit;">因此，我们的主要考虑是降低每件物品的存储成本。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">该设计基于这样的观察：大多数项目都针对一小部分术语进行排名。</font><font style="vertical-align: inherit;">在极端版本中，每个项目针对单个术语进行排名，通常的倒排索引设计效率非常低，因为我们必须将每个术语至少存储两次：一次在索引中，一次在项目数据本身中。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们的设计是一个巨大的哈希图。</font><font style="vertical-align: inherit;">我们有一个由固定数量 N 的页面组成的商店。</font><font style="vertical-align: inherit;">每个页面都有固定大小（当前为 4096 字节以匹配内存页面），并由压缩的项目列表组成。</font><font style="vertical-align: inherit;">给定一个我们想要对某个项目进行排名的术语，我们计算该术语的哈希值（0 到 N - 1 之间的值）。然后将该项目存储在相应的页面中。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为了检索页面，我们只需计算用户查询中术语的哈希值并加载相应的页面，将项目过滤到包含该术语的项目并对项目进行排名。</font><font style="vertical-align: inherit;">由于每个页面都很小，因此可以很快完成。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因为我们压缩了项目列表，所以我们可以对多个单个术语进行排名，并保持比倒排索引设计更小的索引。</font><font style="vertical-align: inherit;">嗯，这就是理论。</font><font style="vertical-align: inherit;">这个想法还有待大规模测试。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-how-to-contribute" class="anchor" aria-hidden="true" tabindex="-1" href="#how-to-contribute"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如何贡献</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有很多方法可以提供帮助：</font></font></p>
+<ul dir="auto">
+<li><a href="https://addons.mozilla.org/en-GB/firefox/addon/mwmbl-web-crawler/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">帮助我们抓取网络</font></font></a></li>
+<li><a href="https://opencollective.com/mwmbl" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">捐赠一些资金</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于支付托管费用并支持我们的志愿者</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供反馈/建议</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">帮助引擎本身的开发</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您愿意以任何方式或其他方式提供帮助，谢谢！</font><font style="vertical-align: inherit;">请加入我们的</font></font><a href="https://matrix.to/#/#mwmbl:matrix.org" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Matrix 聊天服务器</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或向主要作者发送电子邮件（电子邮件地址位于 git 提交历史记录中）。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-development" class="anchor" aria-hidden="true" tabindex="-1" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发展</font></font></h1>
+<h3 tabindex="-1" dir="auto"><a id="user-content-local-testing" class="anchor" aria-hidden="true" tabindex="-1" href="#local-testing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本地测试</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要在本地尝试该服务，请参阅 Mwmbl 书中的</font></font><a href="https://book.mwmbl.org/page/developers/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">部分</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-using-dokku" class="anchor" aria-hidden="true" tabindex="-1" href="#using-dokku"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用 Dokku</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">注意：不推荐这种方法，因为它比较复杂，而且你的索引中不会有任何数据，除非你设置了爬虫爬到你的服务器。</font><font style="vertical-align: inherit;">您将需要设置自己的 Backblaze 或 S3 等效存储，或者有权访问生产密钥，但我们可能不会向您提供这些密钥。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">按照</font></font><a href="https://github.com/mwmbl/mwmbl/wiki/Deployment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">部署说明进行操作</font></font></a></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-frequently-asked-question" class="anchor" aria-hidden="true" tabindex="-1" href="#frequently-asked-question"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">常见问题</font></font></h1>
+<h3 tabindex="-1" dir="auto"><a id="user-content-how-do-you-pronounce-mwmbl" class="anchor" aria-hidden="true" tabindex="-1" href="#how-do-you-pronounce-mwmbl"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“mwmbl”怎么发音？</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">就像“嘀咕”一样。</font><font style="vertical-align: inherit;">我住在
+</font></font><a href="https://en.wikipedia.org/wiki/Mumbles" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">曼布尔斯</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，威尔士语拼写为“Mwmbwls”。</font><font style="vertical-align: inherit;">但其本意是“咕哝”，就像“不要搜索，只是 mwmbl！”</font></font></p>
+</article></div>
